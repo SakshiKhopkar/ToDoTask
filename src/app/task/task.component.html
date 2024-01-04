@@ -1,0 +1,70 @@
+<div class="container">
+<h1>Welocme To User Tasks</h1>
+</div>
+<br>
+<div class="container">
+    <form [formGroup]="TaskForm" (ngSubmit)="saveData()">
+        <div class="form-control form-control-lg">
+            <div class="form-floating mb-3">
+                <input type="text" required class="form-control" formControlName="id" id="id" placeholder="Task id">
+                <label for="floatingInput">Task id</label>
+                <div *ngIf="id?.invalid && (id?.touched && id?.dirty)"  class="text-danger">
+                    <small *ngIf="id?.errors?.['required']">Task id is required</small>
+                </div>
+            </div>
+          <div class="form-floating mb-3">
+            <input type="text" required class="form-control" formControlName="name" id="name" placeholder="Task name">
+            <label for="floatingInput">Task name</label>
+            <div *ngIf="name?.invalid && (name?.touched && name?.dirty)" class="text-danger">
+                <small *ngIf="name?.errors?.['required']">Task name is required</small>
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="date" required class="form-control" formControlName="duedate" id="duedate" placeholder="duedate">
+            <label for="floatingInput">Due Date</label>
+            <div *ngIf="duedate?.invalid && (duedate?.touched || duedate?.dirty)" class="text-danger">
+                <small *ngIf="duedate?.errors?.['required']">duedate is required</small>
+            </div>
+          </div>
+          <br>
+          <div class="form-floating mb-3">
+           <input type="submit" *ngIf="!isUpdatebtn" [disabled]="TaskForm.invalid" class="btn btn-primary" value="Add"/>
+           <input type="submit" *ngIf="isUpdatebtn" [disabled]="TaskForm.invalid" class="btn btn-primary" value="Update"/>
+           &nbsp;&nbsp;
+           <input type="button" class="btn btn-primary" value="Cancel" (click)="clearForm()"/>
+           &nbsp;&nbsp;
+           <input type="button" class="btn btn-primary" value="Completed Tasks" (click)="Showcompleted()"/>
+           &nbsp;&nbsp;
+           <input type="button" class="btn btn-primary" value="New Tasks" (click)="getAllTasks()"/>
+          </div>
+        </div>
+    </form>
+</div>
+<br>
+<div class="container">
+    <table class="table table-bordered" *ngIf="TaskList!=null && TaskList.length>0">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Due Date</th>
+                <th *ngIf="isNewList">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let t of TaskList">
+                <td>{{t.id}}</td>
+                <td>{{t.name}}</td>
+                <td>{{t.duedate | date:'mediumDate'}}</td>
+               
+                <td *ngIf="isNewList">
+                    <input type="button" class="btn btn-warning" value="Edit" (click)="edit(t)" /> &nbsp;&nbsp;
+                    <input type="button" class="btn btn-danger" value="Delete" (click)="delete(t.id)" />&nbsp;&nbsp;
+                    <input type="button" class="btn btn-success" value="Completed" (click)="completed(t.id)" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
