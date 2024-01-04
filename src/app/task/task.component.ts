@@ -72,7 +72,6 @@ export class TaskComponent implements OnInit {
      else{
         this.taskservice.updateTasks(task);
         this.isUpdatebtn=false;
-       // this.empForm.get('id')?.enable();
      }
      this.TaskForm.reset();
      this.getAllTasks();

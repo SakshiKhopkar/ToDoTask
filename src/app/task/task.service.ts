@@ -55,8 +55,7 @@ export class Taskservice{
     completaskList:any=[];
     completedTask(id:number)
     {
-        //debugger;
-      //  var a=false
+
         for(let i=0;i<this.TaskList.length;i++){
             if(this.TaskList[i].id===id){
                 this.TaskList[i].status="done";
